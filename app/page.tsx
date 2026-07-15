@@ -123,7 +123,7 @@ export default function Home() {
             poster="/hero-poster.webp"
             disablePictureInPicture
           >
-            <source src="/hero-rayssa.mp4" type="video/mp4" media="(min-width: 721px)" />
+            <source src="/hero-rayssa.mp4" type="video/mp4" />
           </video>
           <div className="hero-poster" />
           <div className="hero-overlay" />
@@ -256,6 +256,30 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section testimonials" id="depoimentos" aria-labelledby="testimonials-title">
+        <div className="container">
+          <div className="section-heading centered-heading">
+            <div className="eyebrow"><span /> Quem já viveu</div>
+            <h2 id="testimonials-title">O cuidado é sentido nos detalhes.</h2>
+          </div>
+
+          <div className="testimonial-grid">
+            {testimonials.map((testimonial) => (
+              <figure key={testimonial.image}>
+                <Image
+                  src={testimonial.image}
+                  alt={testimonial.alt}
+                  width={testimonial.width}
+                  height={testimonial.height}
+                  sizes="(max-width: 720px) calc(100vw - 56px), 900px"
+                  className="testimonial-image"
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section about" id="sobre" aria-labelledby="about-title">
         <div className="container about-grid">
           <div className="about-visual">
@@ -334,30 +358,6 @@ export default function Home() {
               <h3>Viva seu cuidado</h3>
               <p>Na sessão, o atendimento é ajustado de forma individual e acolhedora.</p>
             </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="section testimonials" id="depoimentos" aria-labelledby="testimonials-title">
-        <div className="container">
-          <div className="section-heading centered-heading">
-            <div className="eyebrow"><span /> Quem já viveu</div>
-            <h2 id="testimonials-title">O cuidado é sentido nos detalhes.</h2>
-          </div>
-
-          <div className="testimonial-grid">
-            {testimonials.map((testimonial) => (
-              <figure key={testimonial.image}>
-                <Image
-                  src={testimonial.image}
-                  alt={testimonial.alt}
-                  width={testimonial.width}
-                  height={testimonial.height}
-                  sizes="(max-width: 720px) calc(100vw - 56px), 900px"
-                  className="testimonial-image"
-                />
-              </figure>
-            ))}
           </div>
         </div>
       </section>
