@@ -29,6 +29,10 @@ export const metadata: Metadata = {
     "Rayssa Fernanda massoterapia",
   ],
   alternates: { canonical: "/" },
+  icons: {
+    icon: [{ url: "/rayssa-logo.webp", type: "image/webp" }],
+    apple: "/rayssa-logo.webp",
+  },
   openGraph: {
     title: "Rayssa Fernanda | Massoterapia em Realengo",
     description: "Alívio para o corpo. Leveza para a rotina.",

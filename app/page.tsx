@@ -137,6 +137,7 @@ export default function Home() {
               width={48}
               height={48}
               className="brand-logo"
+              priority
             />
             <span className="brand-copy">
               <strong>Rayssa Fernanda</strong>
