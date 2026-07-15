@@ -905,8 +905,15 @@ summary {
   justify-content: center;
 }
 
-.testimonial-grid {
+.testimonial-marquee {
   margin-top: 70px;
+}
+
+.testimonial-track {
+  display: block;
+}
+
+.testimonial-group {
   max-width: 940px;
   margin-inline: auto;
   display: flex;
@@ -914,7 +921,11 @@ summary {
   gap: 20px;
 }
 
-.testimonial-grid figure {
+.testimonial-group-duplicate {
+  display: none;
+}
+
+.testimonial-group figure {
   margin: 0;
   padding: 10px;
   background: var(--white);
@@ -1168,6 +1179,12 @@ summary {
   }
 }
 
+@keyframes testimonial-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (max-width: 980px) {
   :root {
     --container: min(100% - 36px, 900px);
@@ -1218,6 +1235,54 @@ summary {
 
   .footer-brand {
     grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .testimonials {
+    padding-top: 64px;
+  }
+
+  .testimonial-marquee {
+    width: 100vw;
+    margin-top: 46px;
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+
+  .testimonial-track {
+    width: max-content;
+    display: flex;
+    animation: testimonial-marquee 32s linear infinite;
+    will-change: transform;
+  }
+
+  .testimonial-marquee:hover .testimonial-track {
+    animation-play-state: paused;
+  }
+
+  .testimonial-group,
+  .testimonial-group-duplicate {
+    max-width: none;
+    margin: 0;
+    padding-right: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .testimonial-group figure {
+    width: min(84vw, 390px);
+    flex: 0 0 min(84vw, 390px);
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .testimonial-image {
+    border-radius: 7px;
   }
 }
 
@@ -1354,27 +1419,6 @@ summary {
     margin-top: 26px;
   }
 
-  .testimonial-grid {
-    margin-top: 46px;
-  }
-
-  .testimonials {
-    padding-top: 64px;
-  }
-
-  .testimonial-grid {
-    gap: 14px;
-  }
-
-  .testimonial-grid figure {
-    padding: 6px;
-    border-radius: 12px;
-  }
-
-  .testimonial-image {
-    border-radius: 7px;
-  }
-
   .faq {
     padding-top: 10px;
   }
@@ -1464,6 +1508,27 @@ summary {
   }
 
   .trust-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .testimonial-marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+    scrollbar-width: none;
+  }
+
+  .testimonial-marquee::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-track {
+    animation: none !important;
+    transform: none;
+    will-change: auto;
+  }
+
+  .testimonial-group-duplicate {
     display: none;
   }
 

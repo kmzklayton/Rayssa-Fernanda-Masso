@@ -318,19 +318,29 @@ export default function Home() {
             <h2 id="testimonials-title">O cuidado é sentido nos detalhes.</h2>
           </div>
 
-          <div className="testimonial-grid">
-            {testimonials.map((testimonial) => (
-              <figure key={testimonial.image}>
-                <Image
-                  src={testimonial.image}
-                  alt={testimonial.alt}
-                  width={testimonial.width}
-                  height={testimonial.height}
-                  sizes="(max-width: 720px) calc(100vw - 56px), 900px"
-                  className="testimonial-image"
-                />
-              </figure>
-            ))}
+          <div className="testimonial-marquee">
+            <div className="testimonial-track">
+              {[false, true].map((isDuplicate) => (
+                <div
+                  className={`testimonial-group${isDuplicate ? " testimonial-group-duplicate" : ""}`}
+                  aria-hidden={isDuplicate ? true : undefined}
+                  key={isDuplicate ? "testimonial-duplicate" : "testimonial-original"}
+                >
+                  {testimonials.map((testimonial) => (
+                    <figure key={`${isDuplicate ? "duplicate" : "original"}-${testimonial.image}`}>
+                      <Image
+                        src={testimonial.image}
+                        alt={isDuplicate ? "" : testimonial.alt}
+                        width={testimonial.width}
+                        height={testimonial.height}
+                        sizes="(max-width: 720px) 84vw, 900px"
+                        className="testimonial-image"
+                      />
+                    </figure>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
