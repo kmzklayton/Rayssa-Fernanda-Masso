@@ -4,6 +4,12 @@ import { TextLoop } from "@/components/ui/text-loop";
 const whatsappUrl =
   "https://wa.me/5521968414939?text=Ol%C3%A1%2C%20Rayssa!%20Gostaria%20de%20agendar%20uma%20sess%C3%A3o.";
 
+const trustItems = [
+  { number: "01", label: "Cuidado personalizado" },
+  { number: "02", label: "Ambiente acolhedor" },
+  { number: "03", label: "Agendamento fácil" },
+];
+
 const services = [
   {
     title: "Massagem relaxante",
@@ -105,6 +111,36 @@ const faqs = [
   },
 ];
 
+function InstagramIcon({ className = "social-icon" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="17.4" cy="6.7" r="1.15" fill="currentColor" />
+    </svg>
+  );
+}
+
+function WhatsAppIcon({ className = "social-icon" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.496.099-.198.05-.347-.025-.496-.075-.149-.669-1.612-.916-2.208-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.875 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.893 9.888-9.893a9.82 9.82 0 0 1 7.021 2.91 9.825 9.825 0 0 1 2.9 7.029c-.002 5.45-4.437 9.892-9.892 9.892m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <main>
@@ -159,7 +195,8 @@ export default function Home() {
             rel="noreferrer"
             aria-label="Agendar uma sessão pelo WhatsApp"
           >
-            Agendar sessão
+            <WhatsAppIcon />
+            <span>Agendar sessão</span>
           </a>
         </header>
 
@@ -186,6 +223,7 @@ export default function Home() {
               target="_blank"
               rel="noreferrer"
             >
+              <WhatsAppIcon />
               Quero agendar minha sessão
               <span aria-hidden="true">→</span>
             </a>
@@ -206,47 +244,64 @@ export default function Home() {
       </section>
 
       <div id="conteudo" className="trust-strip" aria-label="Diferenciais do atendimento">
-        <div className="container trust-grid">
-          <p><strong>01</strong> Cuidado personalizado</p>
-          <p><strong>02</strong> Ambiente acolhedor</p>
-          <p><strong>03</strong> Agendamento fácil</p>
+        <div className="trust-marquee">
+          <div className="trust-track">
+            {[false, true].map((isDuplicate) => (
+              <div
+                className="trust-group"
+                aria-hidden={isDuplicate ? true : undefined}
+                key={isDuplicate ? "duplicate" : "original"}
+              >
+                {trustItems.map((item) => (
+                  <div className="trust-item" key={`${isDuplicate ? "duplicate" : "original"}-${item.number}`}>
+                    <p><strong>{item.number}</strong> {item.label}</p>
+                    <span className="trust-separator" aria-hidden="true">•</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       <section className="section services" id="servicos" aria-labelledby="services-title">
         <div className="container">
-          <div className="section-heading split-heading">
-            <div>
-              <div className="eyebrow"><span /> Tratamentos</div>
-              <h2 id="services-title">Um cuidado para cada momento do seu corpo.</h2>
-            </div>
+          <header className="section-heading services-heading">
+            <div className="eyebrow"><span /> Tratamentos</div>
+            <h2 id="services-title">Um cuidado para cada momento do seu corpo.</h2>
             <p>
               Cada sessão começa com uma escuta atenta. Assim, técnica, intensidade
               e objetivo são adaptados ao que você precisa hoje.
             </p>
-          </div>
+          </header>
 
-          <div className="service-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.title}>
-                <div className="service-card-body">
+          <div className="services-grid">
+            {services.map((service, index) => (
+              <article
+                className="service-glass-card"
+                key={service.title}
+                style={{ zIndex: index + 1 }}
+              >
+                <div className="service-card-content">
                   <h3>{service.title}</h3>
                   <p>{service.text}</p>
-                  <div className="service-media">
+                  <div className="service-card-media">
                     <Image
                       src={service.image}
                       alt={service.imageAlt}
                       fill
-                      sizes="(max-width: 720px) calc(100vw - 88px), (max-width: 980px) 42vw, 27vw"
-                      className="service-image"
+                      sizes="(max-width: 767px) calc(100vw - 76px), (max-width: 980px) 42vw, 27vw"
+                      className="service-card-image"
                     />
                   </div>
                   <a
+                    className="service-card-link"
                     href={`${whatsappUrl}%20Tenho%20interesse%20em%20${encodeURIComponent(service.title)}.`}
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Perguntar sobre ${service.title} pelo WhatsApp`}
                   >
+                    <WhatsAppIcon />
                     Saber mais <span aria-hidden="true">↗</span>
                   </a>
                 </div>
@@ -319,6 +374,7 @@ export default function Home() {
               target="_blank"
               rel="noreferrer"
             >
+              <InstagramIcon />
               Acompanhar no Instagram <span aria-hidden="true">↗</span>
             </a>
           </div>
@@ -338,6 +394,7 @@ export default function Home() {
               target="_blank"
               rel="noreferrer"
             >
+              <WhatsAppIcon />
               Conversar com a Rayssa
             </a>
           </div>
@@ -376,6 +433,7 @@ export default function Home() {
               target="_blank"
               rel="noreferrer"
             >
+              <WhatsAppIcon />
               Tirar uma dúvida
             </a>
           </div>
@@ -405,6 +463,7 @@ export default function Home() {
               target="_blank"
               rel="noreferrer"
             >
+              <WhatsAppIcon />
               Agendar pelo WhatsApp <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -432,12 +491,22 @@ export default function Home() {
           </div>
           <div>
             <span>Contato</span>
-            <a href={whatsappUrl} target="_blank" rel="noreferrer">(21) 96841-4939</a>
+            <a className="footer-contact-link" href={whatsappUrl} target="_blank" rel="noreferrer">
+              <WhatsAppIcon />
+              (21) 96841-4939
+            </a>
           </div>
           <div>
             <span>Redes sociais</span>
-            <a href="https://www.instagram.com/rayssafernaanda" target="_blank" rel="noreferrer">
-              @rayssafernaanda
+            <a
+              className="footer-instagram-link"
+              href="https://www.instagram.com/rayssafernaanda"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Acompanhar Rayssa Fernanda no Instagram"
+            >
+              <InstagramIcon className="footer-social-icon" />
+              <span>@rayssafernaanda</span>
             </a>
           </div>
         </div>
@@ -455,7 +524,7 @@ export default function Home() {
         aria-label="Agendar sessão pelo WhatsApp"
       >
         <span>Agendar</span>
-        <i aria-hidden="true">→</i>
+        <i aria-hidden="true"><WhatsAppIcon /></i>
       </a>
     </main>
   );
